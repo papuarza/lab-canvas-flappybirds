@@ -2,8 +2,11 @@ window.onload = function() {
   document.getElementById("start-button").onclick = function() {
     startGame();
   };
+<<<<<<< HEAD
 
   var myObstacles = [];
+=======
+>>>>>>> caeff81b7a6534a5f77243eaa17f252964591d68
   var n = 0;
 
   function startGame() {
@@ -21,6 +24,10 @@ window.onload = function() {
       document.getElementById("game-board").append(this.canvas);
       this.reqAnimation = window.requestAnimationFrame(updateGameArea);
     },
+<<<<<<< HEAD
+=======
+    myObstacles: [],
+>>>>>>> caeff81b7a6534a5f77243eaa17f252964591d68
     frames: 0,
     clear: function() {
       this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -37,6 +44,11 @@ window.onload = function() {
     },
     gameOver: function() {
       this.clear();
+<<<<<<< HEAD
+=======
+      this.obstacles = [];
+      this.frames = 0;
+>>>>>>> caeff81b7a6534a5f77243eaa17f252964591d68
       this.context.fillStyle = "black";
       this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
       this.context.font = '38px serif';
@@ -102,8 +114,11 @@ window.onload = function() {
   }
 
   function Component(width, height, image, x, y) {
+<<<<<<< HEAD
     n++;
     this.obstacleName = "obstacle" + n;
+=======
+>>>>>>> caeff81b7a6534a5f77243eaa17f252964591d68
     this.image = new Image();
     this.image.src = image;
     this.width = width;
@@ -148,15 +163,24 @@ window.onload = function() {
   }
 
   function updateGameArea() {
+<<<<<<< HEAD
     for (i = 0; i < myObstacles.length; i += 1) {
       if (player.crashWith(myObstacles[i])) {
+=======
+    for (i = 0; i < myGameArea.myObstacles.length; i += 1) {
+      if (player.crashWith(myGameArea.myObstacles[i])) {
+>>>>>>> caeff81b7a6534a5f77243eaa17f252964591d68
         myGameArea.stop();
         return;
       }
     }
     myGameArea.clear();
     myGameArea.frames += 1;
+<<<<<<< HEAD
     if (myGameArea.frames % 300 === 0) {
+=======
+    if (myGameArea.frames % 120 === 0) {
+>>>>>>> caeff81b7a6534a5f77243eaa17f252964591d68
       x = myGameArea.canvas.width;
       y = myGameArea.canvas.height;
       minHeight = 20;
@@ -165,6 +189,7 @@ window.onload = function() {
       minGap = 150;
       maxGap = 300;
       gap = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap);
+<<<<<<< HEAD
       myObstacles.push(new Component(70, height, "./images/obstacle_top.png", x, 0));
       myObstacles.push(new Component(70, (y - height - gap), "./images/obstacle_bottom.png", x, height + gap));
     }
@@ -172,6 +197,15 @@ window.onload = function() {
     for (i = 0; i < myObstacles.length; i += 1) {
       myObstacles[i].x += -1;
       myObstacles[i].update();
+=======
+      myGameArea.myObstacles.push(new Component(70, height, "./images/obstacle_top.png", x, 0));
+      myGameArea.myObstacles.push(new Component(70, (y - height - gap), "./images/obstacle_bottom.png", x, height + gap));
+    }
+    background.draw();
+    for (i = 0; i < myGameArea.myObstacles.length; i += 1) {
+      myGameArea.myObstacles[i].x += -3;
+      myGameArea.myObstacles[i].update();
+>>>>>>> caeff81b7a6534a5f77243eaa17f252964591d68
     }
     player.newPos();
     player.update();

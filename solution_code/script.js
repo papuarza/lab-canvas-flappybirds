@@ -2,8 +2,6 @@ window.onload = function() {
   document.getElementById("start-button").onclick = function() {
     startGame();
   };
-
-  var myObstacles = [];
   var n = 0;
 
   function startGame() {
@@ -21,6 +19,7 @@ window.onload = function() {
       document.getElementById("game-board").append(this.canvas);
       this.reqAnimation = window.requestAnimationFrame(updateGameArea);
     },
+    myObstacles: [],
     frames: 0,
     clear: function() {
       this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -37,6 +36,8 @@ window.onload = function() {
     },
     gameOver: function() {
       this.clear();
+      this.obstacles = [];
+      this.frames = 0;
       this.context.fillStyle = "black";
       this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
       this.context.font = '38px serif';
@@ -102,8 +103,6 @@ window.onload = function() {
   }
 
   function Component(width, height, image, x, y) {
-    n++;
-    this.obstacleName = "obstacle" + n;
     this.image = new Image();
     this.image.src = image;
     this.width = width;
@@ -148,15 +147,15 @@ window.onload = function() {
   }
 
   function updateGameArea() {
-    for (i = 0; i < myObstacles.length; i += 1) {
-      if (player.crashWith(myObstacles[i])) {
+    for (i = 0; i < myGameArea.myObstacles.length; i += 1) {
+      if (player.crashWith(myGameArea.myObstacles[i])) {
         myGameArea.stop();
         return;
       }
     }
     myGameArea.clear();
     myGameArea.frames += 1;
-    if (myGameArea.frames % 300 === 0) {
+    if (myGameArea.frames % 120 === 0) {
       x = myGameArea.canvas.width;
       y = myGameArea.canvas.height;
       minHeight = 20;
@@ -165,13 +164,13 @@ window.onload = function() {
       minGap = 150;
       maxGap = 300;
       gap = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap);
-      myObstacles.push(new Component(70, height, "./images/obstacle_top.png", x, 0));
-      myObstacles.push(new Component(70, (y - height - gap), "./images/obstacle_bottom.png", x, height + gap));
+      myGameArea.myObstacles.push(new Component(70, height, "./images/obstacle_top.png", x, 0));
+      myGameArea.myObstacles.push(new Component(70, (y - height - gap), "./images/obstacle_bottom.png", x, height + gap));
     }
     background.draw();
-    for (i = 0; i < myObstacles.length; i += 1) {
-      myObstacles[i].x += -1;
-      myObstacles[i].update();
+    for (i = 0; i < myGameArea.myObstacles.length; i += 1) {
+      myGameArea.myObstacles[i].x += -3;
+      myGameArea.myObstacles[i].update();
     }
     player.newPos();
     player.update();
